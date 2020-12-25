@@ -1,0 +1,39 @@
+version: '2'
+services: 
+  tweet:
+        build: ./tweet-ei-inference
+        privileged: true
+        restart: always
+        labels:
+                io.balena.features.dbus: '1'
+                io.balena.features.kernel-modules: '1'
+        volumes: 
+                - 'shared-data:/var/data'
+                - 'shared-media:/var/media'
+  face:
+        build: ./face-ei-inference
+        privileged: true
+        restart: always
+        labels:
+                io.balena.features.dbus: '1'
+                io.balena.features.kernel-modules: '1'
+        volumes: 
+                - 'shared-data:/var/data'
+                - 'shared-media:/var/media'
+  camera:
+        build: ./camera-dash
+        privileged: true
+        restart: always
+        volumes: 
+                - 'shared-data:/var/data'
+                - 'shared-media:/var/media'
+        depends_on:
+                - face
+        ports:
+                - "80"
+        labels:
+                io.balena.features.kernel-modules: '1'
+
+volumes:
+        shared-data: 
+        shared-media:
