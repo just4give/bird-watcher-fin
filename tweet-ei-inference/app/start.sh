@@ -5,6 +5,7 @@ amixer set Micro 80%
 amixer set Master 80%
 alsactl store
 
+# Run below commands to test out speaker and microphone
 # arecord -d4 --rate=44000 test.wav&
 # speaker-test -l1 -c2 -t wav
 # aplay test.wav

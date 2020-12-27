@@ -59,6 +59,7 @@ class CameraDevice():
         return encimg.tostring()
     
     def get_jpeg_frame_sync(self):
+        global ws
         ret, frame = self.cap.read()
         frame = self.rotate(frame)
         self.base64_img(frame)
@@ -67,26 +68,30 @@ class CameraDevice():
         #     text_file.write(jpg_base64)
 
         
-        #print("Image saved...Sending to classifier")
-        ws.send(jpg_base64)
-        cl_results=ws.recv()
-        print(cl_results)
-        jsonoobj=json.loads(cl_results)
-        # maxvalue=0.9
-        # maxlabel=''
-        # for node in jsonoobj['results']:
-        #     if node['value'] > maxvalue:
-        #         maxvalue=node['value']
-        #         maxlabel=node['label']
-        
-        if jsonoobj['found'] == True:
-            print("$$$ Detected",jsonoobj['label'])
-            id = int(round(time.time() * 1000))
-            filename = str(id)+'.jpg'
-            cv2.imwrite('/var/media/'+filename, frame)
-            insert_activity(con,(id,filename,jsonoobj['label'],'image'))
-            
+        print("Image saved...Sending to classifier")
+        try:
+            ws.send(jpg_base64)
+            cl_results=ws.recv()
 
+            if(cl_results==b''):
+                print("Connection closed")
+            print(cl_results)
+            jsonoobj=json.loads(cl_results)
+            
+            if jsonoobj['found'] == True:
+                print("$$$ Detected",jsonoobj['label'])
+                id = int(round(time.time() * 1000))
+                filename = jsonoobj['filename']
+                cv2.imwrite('/var/media/'+filename, frame)
+                
+        except Exception as err:
+            print(err)
+            os._exit(1)
+            
+        
+            
+            
+        time.sleep(3)
         return frame
 
 class PeerConnectionFactory():
@@ -275,7 +280,7 @@ def checkDeviceReadiness():
 def check_for_objects():
     while True:
         frame = camera_device.get_jpeg_frame_sync()
-        time.sleep(1)
+        #time.sleep(1)
         
 
 def create_table(con):
@@ -298,7 +303,7 @@ if __name__ == '__main__':
     con = sqlite3.connect('sqlite.db')
     create_table(con)
     id = int(round(time.time() * 1000))
-    insert_activity(con,(id,'frame.jpg','Finch','image'))
+    
 
     flip = False
     try:
@@ -330,7 +335,7 @@ if __name__ == '__main__':
     t = threading.Thread(target=check_for_objects, args=())
     t.daemon = True
     t.start()
-
+    print("Connected to ws://face:8080")
     app = web.Application(middlewares=auth)
     app.on_shutdown.append(on_shutdown)
     app.router.add_get('/', index)

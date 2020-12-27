@@ -6,7 +6,7 @@ const sharp = require('sharp');
 const WebSocket = require('ws');
 const { execSync } = require('child_process');
 const TelegramBot = require('telegram-bot-api'); 
-
+const axios = require('axios');
 const TG_TOKEN = process.env.TG_TOKEN; 
 const TG_CHAT_ID = process.env.TG_CHAT_ID;
 const bot = new TelegramBot({token: TG_TOKEN}); 
@@ -106,7 +106,7 @@ wss.on('connection', function connection(ws) {
         Promise.all([cl, buf])
         .then(async () => {
             let result = classifier.classify(raw_features);
-            console.log();
+            console.log(result);
             let maxvalue = 0.8;
             let maxlabel;
             result.results.forEach(item=>{
@@ -121,11 +121,19 @@ wss.on('connection', function connection(ws) {
             if(maxlabel && maxlabel!='unknown'){
                 wsdata.label = maxlabel;
                 wsdata.found = true;
+                wsdata.filename = new Date().getTime()+'.jpg';
                 await bot.sendPhoto({
                     chat_id: TG_CHAT_ID,
                     caption: maxlabel,
                     photo: fs.createReadStream('/var/data/frame.jpg')
                 })
+                console.log(`Bird found ${JSON.stringify(wsdata)}`);
+
+                await axios.post('http://camera/activity', {name:wsdata.filename,label:maxlabel,typ:'image'}, 
+                {auth: 
+                    {username: process.env.username,
+                     password: process.env.password
+                    }});
             }
             ws.send(JSON.stringify(wsdata));
 

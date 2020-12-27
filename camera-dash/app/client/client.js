@@ -9,6 +9,12 @@ window.onbeforeunload = function() {
   }
 };
 
+async function clearGallery(){
+  console.log('clearing gallery...');
+  let response = await fetch("/clean");
+  await getGallery();
+}
+
 function showFullscreenMessage() {
   if (state === 1) {
     var elem = document.getElementById('fullscreen-info-1');
@@ -295,16 +301,15 @@ if (window.navigator.userAgent.indexOf("Edge") > -1  || safariOnIos) {
     startMJPEG();
   });
 }
-async function clear(){
-  let response = await fetch("/clean");
-  await getGallery();
-}
+
+
+
 
 async function getGallery(){
   let response = await fetch("/gallery");
   if(response.status === 200){
     let message = await response.json();
-     console.log(message);
+     //console.log(message);
      let content ='';
 
      message.forEach(item=>{

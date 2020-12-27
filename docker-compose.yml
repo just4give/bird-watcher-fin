@@ -29,6 +29,7 @@ services:
                 - 'shared-media:/var/media'
         depends_on:
                 - face
+                - tweet
         ports:
                 - "80"
         labels:
