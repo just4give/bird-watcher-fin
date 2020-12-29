@@ -1,0 +1,18 @@
+version: "2"
+slug: "bird-watcher-fin"
+name: "Bird Watcher"
+type: "sw.application"
+assets:
+  - url: "https://github.com/just4give/bird-watcher-fin"
+    name: "repository"
+  - url: "https://raw.githubusercontent.com/just4give/bird-watcher-fin/master/logo.png"
+    name: "logo"
+data:
+  description: "Smart Bird Feeder Powered by Edge Impulse and Balena"
+  applicationEnvironmentVariables:
+    - TG_CHAT_ID: 0
+    - TG_TOKEN: 0
+  defaultDeviceType: "fincm3"
+  supportedDeviceTypes:
+    - "raspberrypi3"
+    - "fincm3"
