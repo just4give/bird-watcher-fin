@@ -133,6 +133,9 @@ cat /root/.asoundrc
 ```
 ![](https://hackster.imgix.net/uploads/attachments/1236290/screen_shot_2020-12-26_at_1_34_30_am_5HDpnll5Cb.png?auto=compress%2Cformat&w=740&h=555&fit=max)
 
+## What's next?
+
+My plan is to add PIR motion sensor to wake up the module when visitors appear and put the module in sleep mode otherwise to save power consumption. Then use solar powered battery to power the module.
 
 
 Make sure you see both speaker and microphone card from first two commands and make sure card numbers match with .asoundrc file.
