@@ -29,10 +29,10 @@ Now let's take a deeper dive into technology stack
 3. [Pi Cam V2](https://www.amazon.com/Raspberry-Pi-Camera-Module-Megapixel/dp/B01ER2SKFS)
 
 ## Software Required
-1. Free Balena Cloud Account 
-2. Free Edge Impulse Studio Account
+1. Free [Balena Cloud](https://dashboard.balena-cloud.com/) Account 
+2. Free [Edge Impulse Studio](https://studio.edgeimpulse.com/) Account
 3. Visual Studio Code ( or your favorite editor ) 
-4. Telegram Bot
+4. [Telegram Bot](https://telegram.org/)
 
 ## 3D Printer 
 This is optional. You may use STL files from my hackster project.
@@ -63,7 +63,7 @@ I got fairly good trained model. Live classification works pretty well. Only con
 Once I am satisfied with the model, I built "Web Assembly" which is downloaded in a zip file with a "wasm" and a javascript file. I used these files later my code.
 
 ## Bird Image Classification Using Edge Impulse
-I have collected all the images from internet but it would give you more accurate prediction if you can capture some live images from your pi camera. Follow this tutorial on EI website to better understand image classification.
+I have collected all the images from internet but it would give you more accurate prediction if you can capture some live images from your pi camera. Follow this [tutorial](https://docs.edgeimpulse.com/docs/image-classification) on EI website to better understand image classification.
 
 ![](https://hackster.imgix.net/uploads/attachments/1236472/screen_shot_2020-12-26_at_2_15_22_pm_VsIytULlmb.png?auto=compress%2Cformat&w=740&h=555&fit=max)
 
