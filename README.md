@@ -38,6 +38,9 @@ Now let's take a deeper dive into technology stack
 This is optional. You may use STL files from my hackster project.
 ![IMG_3803](https://user-images.githubusercontent.com/9275193/103364208-29f89a80-4a8b-11eb-99f9-a4db6474c0b6.jpg)
 
+I am not a good 3D designer and the enclousre is not perfect. You may need to use tape and screw. If you can design a better case, please share with us.
+
+
 ## Bird Chirp Classification Using Edge Impulse
 ![IMG1](https://hackster.imgix.net/uploads/attachments/1236230/0_qgo58objuzppam6q_(1)_8LWY7wN8l1.jpeg?auto=compress%2Cformat&w=740&h=555&fit=max)
 
