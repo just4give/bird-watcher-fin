@@ -90,7 +90,7 @@ You will receive a json response. Copy "chat.id" and save it as well. You will n
 ## Creating BalenaCloud project
 Click on "Deploy with balena" button below.
 
-[![](https://balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy)
+[![balena deploy button](https://balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/just4give/bird-watcher-fin&defaultDeviceType=fincm3)
 
 Please note, this will deploy my trained model. If you like to deploy your model, clone my repo, replace edge-impulse-standalone.js and edge-impulse-standalone.wasm files under "tweet/app" folder.
 
