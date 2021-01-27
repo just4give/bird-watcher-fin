@@ -87,12 +87,16 @@ class Recorder {
 
     async init(){
         await this.classifier.init();
+        execSync("sox -t alsa default -b 16 -r 16k /var/data/noise.wav  trim 0 5").toString();
+        execSync("sox /var/data/noise.wav -n noiseprof /var/data/noise.prof").toString();
+        console.log("Noise profile created");
     }
 
     async run() {
         execSync(SOX_COMMAND, {}).toString();
-        console.log('sound recorded', new Date());
-
+        console.log('audio recorded', new Date());
+        // execSync("sox /var/data/request.wav /var/data/clean.wav noisered /var/data/noise.prof 0.21");
+        // console.log("audio cured ...");
         let buffer = fs.readFileSync('/var/data/request.wav');
 
         if (buffer.slice(0, 4).toString('ascii') !== 'RIFF') {
@@ -141,6 +145,11 @@ class Recorder {
             console.log(result);
 
             let maxvalue = 0.9;
+            if(process.env.CONFIDENCE){
+                maxvalue = parseFloat(process.env.CONFIDENCE);
+            }
+            console.log(`Confidence threshold ${maxvalue}`);
+            
             let maxlabel;
             result.results.forEach(item=>{
                 if(item.value>=maxvalue){
@@ -152,22 +161,22 @@ class Recorder {
             if(maxlabel!==undefined && maxlabel !=='unknown'){
                 let confidence = Math.round(maxvalue*100);
                 console.log('------------------------------------------------------');
-                console.log(`Bird found ${maxlabel} with confidence ${confidence}  at ` , new Date());
+                console.log(`Bird Sound detected ${maxlabel} with confidence ${confidence}  at ` , new Date());
                 console.log('------------------------------------------------------');
-                // let id = new Date().getTime();
-                // let filename = maxlabel+"."+id+'.wav';
-                // execSync(`cp /var/data/request.wav /var/media/${filename}`);
+                let id = new Date().getTime();
+                let filename = maxlabel+"."+id+'.wav';
+                execSync(`cp /var/data/request.wav /var/media/${filename}`);
                 // await bot.sendAudio({
                 //     chat_id: TG_CHAT_ID,
                 //     caption: `${maxlabel} with ${confidence}% confidence`,
                 //     audio: fs.createReadStream(`/var/media/${filename}`)
                 // })
 
-                // await axios.post('http://camera/activity', {name:filename,label:maxlabel,typ:'audio'}, 
-                // {auth: 
-                //     {username: process.env.username,
-                //      password: process.env.password
-                //     }});
+                await axios.post('http://camera/activity', {name:filename,label:maxlabel,typ:'audio'}, 
+                {auth: 
+                    {username: process.env.username,
+                     password: process.env.password
+                    }});
 
             }
             
@@ -188,9 +197,13 @@ class Recorder {
 
 }
 
+(async function () {
+    let recorder = new Recorder();
+    await recorder.init();
+    await recorder.run();
+})();
 
-let recorder = new Recorder();
-recorder.init();
-recorder.run();
+
+
 
 

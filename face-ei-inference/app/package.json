@@ -4,6 +4,7 @@
   "description": "Run inference on image received through a websocket",
   "main": "classify-image.js",
   "scripts": {
+    "prestart": "sh ./download.sh",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
