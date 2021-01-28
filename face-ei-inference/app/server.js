@@ -103,6 +103,7 @@ wss.on('connection', function connection(ws) {
             });
 
         // Run classifier once image raw features retrieved and classifier initialized
+        let wsdata = {found: false};
         Promise.all([cl, buf])
         .then(async () => {
             let result = classifier.classify(raw_features);
@@ -112,7 +113,7 @@ wss.on('connection', function connection(ws) {
                 maxvalue = parseFloat(process.env.CONFIDENCE);
             }
             console.log(`Confidence threshold ${maxvalue}`);
-            
+
             let maxlabel;
             result.results.forEach(item=>{
                 if(item.value>=maxvalue){
@@ -121,18 +122,21 @@ wss.on('connection', function connection(ws) {
                 }
             })
 
-            let wsdata = {found: false}
+            
 
             if(maxlabel && maxlabel!='unknown'){
                 wsdata.label = maxlabel;
                 wsdata.found = true;
                 wsdata.filename = new Date().getTime()+'.jpg';
+
+                console.log(`Bird found ${JSON.stringify(wsdata)}`);
+
                 await bot.sendPhoto({
                     chat_id: TG_CHAT_ID,
                     caption: maxlabel,
                     photo: fs.createReadStream('/var/data/frame.jpg')
                 })
-                console.log(`Bird found ${JSON.stringify(wsdata)}`);
+                
 
                 await axios.post('http://camera/activity', {name:wsdata.filename,label:maxlabel,typ:'image'}, 
                 {auth: 
@@ -145,6 +149,7 @@ wss.on('connection', function connection(ws) {
         })
         .catch(err => {
             console.error('Failed to run classifier', err);
+            ws.send(JSON.stringify(wsdata));
         })
 
     })
