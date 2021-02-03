@@ -1,14 +1,16 @@
-version: "2"
-slug: "bird-watcher-fin"
 name: "Bird Watcher"
 type: "sw.application"
+description: "Build a Smart Bird Feeder powered by Edge Impulse and Balena"
 assets:
-  - url: "https://github.com/just4give/bird-watcher-fin"
-    name: "repository"
-  - url: "https://raw.githubusercontent.com/just4give/bird-watcher-fin/master/logo.png"
-    name: "logo"
+  repository:
+    type: "blob.asset"
+    data:
+      url: "https://github.com/just4give/bird-watcher-fin"
+  logo:
+    type: "blob.asset"
+    data:
+      url: "https://raw.githubusercontent.com/just4give/bird-watcher-fin/master/logo.png"
 data:
-  description: "Smart Bird Feeder Powered by Edge Impulse and Balena"
   applicationEnvironmentVariables:
     - TG_CHAT_ID: 0
     - TG_TOKEN: 0
