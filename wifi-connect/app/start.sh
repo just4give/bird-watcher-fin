@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-
+export PORTAL_LISTENING_PORT=8100
+export PORTAL_SSID=BIRD-WIFI-AP
 # Optional step - it takes couple of seconds (or longer) to establish a WiFi connection
 # sometimes. In this case, following checks will fail and wifi-connect
 # will be launched even if the device will be able to connect to a WiFi network.
