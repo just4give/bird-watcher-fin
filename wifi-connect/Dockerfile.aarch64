@@ -1,0 +1,17 @@
+FROM balenalib/raspberrypi3-debian
+
+RUN install_packages dnsmasq wireless-tools wget
+
+
+
+
+WORKDIR /usr/src/app
+
+ARG VERSION="4.4.4"
+RUN curl -Ls "https://github.com/balena-io/wifi-connect/releases/download/v$VERSION/wifi-connect-v$VERSION-linux-%%BALENA_ARCH%%.tar.gz" \
+  | tar -xvz -C  /usr/src/app/
+
+
+COPY ./app/ /usr/src/app/.
+
+CMD ["bash", "start.sh"]

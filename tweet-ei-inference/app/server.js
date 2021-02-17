@@ -93,6 +93,7 @@ class Recorder {
     }
 
     async run() {
+        console.log(SOX_COMMAND);
         execSync(SOX_COMMAND, {}).toString();
         console.log('audio recorded', new Date());
         // execSync("sox /var/data/request.wav /var/data/clean.wav noisered /var/data/noise.prof 0.21");

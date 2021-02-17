@@ -10,6 +10,7 @@ import time
 from datetime import datetime
 import threading
 import sqlite3
+import RPi.GPIO as GPIO
 
 class CameraDevice():
     def __init__(self):
@@ -86,6 +87,7 @@ class CameraDevice():
                 
         except Exception as err:
             print(err)
+            GPIO.cleanup()
             os._exit(1)
             
         
@@ -282,6 +284,12 @@ def check_for_objects():
         frame = camera_device.get_jpeg_frame_sync()
         #time.sleep(1)
         
+# def check_pir_sensor():
+#     while True:
+#         if GPIO.input(PIR_PIN) == 1:
+#             print("###################   Motion Detected ################")
+
+#         time.sleep(0.1)
 
 def create_table(con):
     cursorObj = con.cursor()
@@ -303,7 +311,9 @@ if __name__ == '__main__':
     con = sqlite3.connect('sqlite.db')
     create_table(con)
     id = int(round(time.time() * 1000))
-    
+    GPIO.setmode(GPIO.BCM)
+    #PIR_PIN = 7
+    #GPIO.setup(PIR_PIN, GPIO.IN)
 
     flip = False
     try:
@@ -336,6 +346,10 @@ if __name__ == '__main__':
     t.daemon = True
     t.start()
     print("Connected to ws://face:8080")
+
+    print("Starting PIR thread")
+    #threading.Thread(target=check_pir_sensor,daemon=True).start()
+
     app = web.Application(middlewares=auth)
     app.on_shutdown.append(on_shutdown)
     app.router.add_get('/', index)

@@ -4,6 +4,8 @@ services:
         build: ./tweet-ei-inference
         privileged: true
         restart: always
+        depends_on:
+                - wifi-connect
         labels:
                 io.balena.features.dbus: '1'
                 io.balena.features.kernel-modules: '1'
@@ -14,6 +16,8 @@ services:
         build: ./face-ei-inference
         privileged: true
         restart: always
+        # depends_on:
+        #         - wifi-connect
         labels:
                 io.balena.features.dbus: '1'
                 io.balena.features.kernel-modules: '1'
@@ -32,9 +36,35 @@ services:
                 - tweet
         ports:
                 - "80"
+                
         labels:
                 io.balena.features.kernel-modules: '1'
+#   finblock:
+#         restart: always
+#         image: balenablocks/finabler:latest
+#         network_mode: host
+#         privileged: true
+#         volumes:
+#                 - 'fin:/data/firmware'
+#         labels:
+#                 io.balena.features.supervisor-api: '1'
+#                 io.balena.features.balena-api: '1'
+#         expose:
+#                 - "1337"
+  wifi-connect:
+        build: ./wifi-connect
+        restart: always
+        network_mode: host
+        privileged: true
+        labels:
+                io.balena.features.dbus: '1'
+                io.balena.features.firmware: '1'
+        cap_add:
+                - NET_ADMIN
+        environment:
+                DBUS_SYSTEM_BUS_ADDRESS: "unix:path=/host/run/dbus/system_bus_socket"
 
 volumes:
         shared-data: 
         shared-media:
+        fin:
