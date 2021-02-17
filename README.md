@@ -21,6 +21,8 @@ First let me tell you the cool features of this bird watcher.
 
 4. Push Notification - Instant notification to Telegram app when a bird is sighted.
 
+5. WiFi management using balena [wifi-connect](https://github.com/balena-io/wifi-connect)
+
 Now let's take a deeper dive into technology stack
 
 ## Hardware Required
@@ -119,6 +121,19 @@ This is very important configuration based on DAC you are using. I have used "Ra
 ![](https://hackster.imgix.net/uploads/attachments/1236284/screen_shot_2020-12-25_at_11_46_50_pm_sxOSGAcsGH.png?auto=compress%2Cformat&w=740&h=555&fit=max)
 
 Next, enable public device url and click on the link which will take you to live video stream.
+
+## WiFi Management
+
+New feature added on 15th Feb 2021. Now you are not locked down to the initial WiFi credential you setup. You can change your device WiFi at runtime. Imagine you want to gift this device to someone else away from your home WiFi. When they connect the device to power, balena will create an captive access point named `BIRD-WIFI-AP` (configurable in device variables ). User has to connect to that access point and open `http://192.168.42.1:8100` on the browser. Or can scan the below QR code which should open captive wifi management website on phone. Select your WiFi network and connect. In few minutes your device should be connected to internet.
+
+![frame](https://user-images.githubusercontent.com/9275193/108235320-b4688c80-7113-11eb-8ed2-d67e2b30de23.png)
+
+You can change the access point name and port in device variables as below
+
+<img width="1021" alt="Screen Shot 2021-02-17 at 11 32 49 AM" src="https://user-images.githubusercontent.com/9275193/108235574-f0035680-7113-11eb-99ca-027536495bf1.png">
+
+
+
 
 ## Demo And Screenshots
 
