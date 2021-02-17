@@ -126,6 +126,8 @@ Next, enable public device url and click on the link which will take you to live
 
 New feature added on 15th Feb 2021. Now you are not locked down to the initial WiFi credential you setup. You can change your device WiFi at runtime. Imagine you want to gift this device to someone else away from your home WiFi. When they connect the device to power, balena will create an captive access point named `BIRD-WIFI-AP` (configurable in device variables ). User has to connect to that access point and open `http://192.168.42.1:8100` on the browser. Or can scan the below QR code which should open captive wifi management website on phone. Select your WiFi network and connect. In few minutes your device should be connected to internet.
 
+![IMG_4019](https://user-images.githubusercontent.com/9275193/108235983-6a33db00-7114-11eb-9d8b-f05f986dfaa1.PNG)
+
 ![frame](https://user-images.githubusercontent.com/9275193/108235320-b4688c80-7113-11eb-8ed2-d67e2b30de23.png)
 
 You can change the access point name and port in device variables as below
