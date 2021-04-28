@@ -14,6 +14,8 @@ data:
   applicationEnvironmentVariables:
     - TG_CHAT_ID: 0
     - TG_TOKEN: 0
+    - PORTAL_LISTENING_PORT: 8100
+    - PORTAL_SSID: BIRD-WIFI-AP
   defaultDeviceType: "fincm3"
   supportedDeviceTypes:
     - "raspberrypi3"
