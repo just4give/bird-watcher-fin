@@ -109,8 +109,8 @@ wss.on('connection', function connection(ws) {
             let result = classifier.classify(raw_features);
             console.log(result);
             let maxvalue = 0.8;
-            if(process.env.CONFIDENCE){
-                maxvalue = parseFloat(process.env.CONFIDENCE);
+            if(process.env.CONFIDENCE_IMAGE){
+                maxvalue = parseFloat(process.env.CONFIDENCE_IMAGE);
             }
             console.log(`Confidence threshold ${maxvalue}`);
 

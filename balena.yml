@@ -16,6 +16,14 @@ data:
     - TG_TOKEN: 0
     - PORTAL_LISTENING_PORT: 8100
     - PORTAL_SSID: BIRD-WIFI-AP
+    - EI_PROJECT_ID_IMAGE: 0
+    - EI_API_KEY_IMAGE: 0
+    - EI_PROJECT_ID_VOICE: 0
+    - EI_API_KEY_VOICE: 0
+    - CONFIDENCE_IMAGE: 0.8
+    - CONFIDENCE_VOICE: 0.8
+    - password: bird
+    - username: bird
   defaultDeviceType: "fincm3"
   supportedDeviceTypes:
     - "raspberrypi3"

@@ -4,9 +4,9 @@
 
 
 curl --request GET \
-  --url "https://studio.edgeimpulse.com/v1/api/$EI_PROJECT_ID/deployment/download?type=wasm" \
+  --url "https://studio.edgeimpulse.com/v1/api/$EI_PROJECT_ID_VOICE/deployment/download?type=wasm" \
   --header "accept: application/zip" \
-  --header "x-api-key: $EI_API_KEY" --output wasm.zip
+  --header "x-api-key: $EI_API_KEY_VOICE" --output wasm.zip
 
 unzip -o wasm.zip && rm wasm.zip
 

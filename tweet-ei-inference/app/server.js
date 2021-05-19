@@ -146,8 +146,8 @@ class Recorder {
             console.log(result);
 
             let maxvalue = 0.9;
-            if(process.env.CONFIDENCE){
-                maxvalue = parseFloat(process.env.CONFIDENCE);
+            if(process.env.CONFIDENCE_VOICE){
+                maxvalue = parseFloat(process.env.CONFIDENCE_VOICE);
             }
             console.log(`Confidence threshold ${maxvalue}`);
             
