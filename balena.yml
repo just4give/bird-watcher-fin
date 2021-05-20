@@ -1,6 +1,7 @@
 name: "Bird Watcher"
 type: "sw.application"
 description: "Build a Smart Bird Feeder powered by Edge Impulse and Balena"
+joinable: false
 assets:
   repository:
     type: "blob.asset"
